@@ -1,0 +1,22 @@
+# 서버 기본 설정
+server:
+  port: 8080
+  address: localhost
+  servlet:
+    context-path: /
+
+# SPRING 프로파일 설정
+spring:
+  profiles:
+    active: local
+    group:
+      local: profiles-local
+
+---
+# LOCAL 프로파일 설정
+spring.config.activate.on-profile: "profiles-local"
+spring:
+  config:
+    import:
+      - classpath:config/datasource/datasource-local.yml
+      - classpath:config/environment/environment-local.yml

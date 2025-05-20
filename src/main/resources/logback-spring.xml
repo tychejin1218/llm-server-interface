@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+  <!-- 로그 색상 설정 -->
+  <conversionRule conversionWord="clr"
+    converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+  <conversionRule conversionWord="wex"
+    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+  <conversionRule conversionWord="wEx"
+    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+
+  <!-- 로그 출력 패턴 -->
+  <property name="LOG_DATEFORMAT_PATTERN" value="yyyy-MM-dd HH:mm:ss.SSS"/>
+  <property name="LOG_LEVEL_PATTERN" value="%5p"/>
+  <property name="LOG_EXCEPTION_CONVERSION_WORD" value="%wEx"/>
+  <property name="LOG_PATTERN"
+    value="%clr(%d{${LOG_DATEFORMAT_PATTERN}}){green} %clr(${LOG_LEVEL_PATTERN}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD}"/>
+
+  <!-- 콘솔 로그 Appender -->
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>${LOG_PATTERN}</pattern>
+    </encoder>
+  </appender>
+
+  <!-- 로그 레벨 설정 -->
+  <property name="LOG_LEVEL_root" value="DEBUG"/>
+  <property name="LOG_LEVEL_com.wanted.assignment" value="DEBUG"/>
+  <property name="LOG_LEVEL_org.springframework" value="DEBUG"/>
+  <property name="LOG_LEVEL_com.zaxxer.hikari" value="DEBUG"/>
+  <property name="LOG_LEVEL_org.hibernate" value="DEBUG"/>
+  <property name="LOG_LEVEL_org.hibernate.SQL" value="DEBUG"/>
+  <property name="LOG_LEVEL_org.hibernate.orm.jdbc.bind" value="TRACE"/>
+
+  <!-- 공통 Logger 설정 -->
+  <root level="${LOG_LEVEL_root}">
+    <appender-ref ref="CONSOLE"/>
+  </root>
+
+  <!-- 패키지별 로그 레벨 설정 -->
+  <logger name="com.wanted.assignment"
+    level="${LOG_LEVEL_com.wanted.assignment}"
+    additivity="false">
+    <appender-ref ref="CONSOLE"/>
+  </logger>
+  <logger name="org.springframework"
+    level="${LOG_LEVEL_org.springframework}"
+    additivity="false">
+    <appender-ref ref="CONSOLE"/>
+  </logger>
+  <logger name="com.zaxxer.hikari"
+    level="${LOG_LEVEL_com.zaxxer.hikari}"
+    additivity="false">
+    <appender-ref ref="CONSOLE"/>
+  </logger>
+  <logger name="org.hibernate"
+    level="${LOG_LEVEL_org.hibernate}"
+    additivity="false">
+    <appender-ref ref="CONSOLE"/>
+  </logger>
+  <logger name="org.hibernate.SQL"
+    level="${LOG_LEVEL_org.hibernate.SQL}"
+    additivity="false">
+    <appender-ref ref="CONSOLE"/>
+  </logger>
+  <logger name="org.hibernate.orm.jdbc.bind"
+    level="${LOG_LEVEL_org.hibernate.orm.jdbc.bind}"
+    additivity="false">
+    <appender-ref ref="CONSOLE"/>
+  </logger>
+
+</configuration>
