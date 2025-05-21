@@ -20,8 +20,7 @@ public class OpenApiConfig {
   public OpenAPI customOpenApi() {
     return new OpenAPI()
         .info(new Info()
-            //.title("[원티드랩] 자바 개발자 과제")
-            .title("123")
+            .title("[원티드랩] 자바 개발자 과제")
             .description("사용자(User) 및 LLM(Large Language Model) 관련 API 제공")
             .version("1.0.0"))
         .addServersItem(new Server().url("/"));
