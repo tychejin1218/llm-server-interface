@@ -1,27 +1,29 @@
+# Spring Boot 프로젝트 설정
+
 ## 목차
 
-1. [`build.gradle` 설정](#1-buildgradle-설정)
-2. [`application.yml` 구성](#2-applicationyml-구성)
-3. [로그 설정 (`logback-spring.xml`)](#3-로그-설정-logback-springxml)
+1. [Gradle 설정 (build.gradle)](#1-gradle-설정-buildgradle)
+2. [Application 설정 (application.yml)](#2-application-설정-applicationyml)
+3. [로그 설정 (logback-spring.xml)](#3-로그-설정-logback-springxml)
 4. [패키지 구조](#4-패키지-구조)
-5. [빈 등록 (`config` 패키지)](#5-빈-등록-config-패키지)
-6. [요청/응답 로그 등록 (`LoggingFilter`)](#6-요청응답-로그-등록-loggingfilter)
+5. [config 패키지 Bean 등록](#5-config-패키지-bean-등록)
+6. [LoggingFilter](#6-loggingfilter)
 7. [ExceptionAdvice](#7-exceptionadvice)
-8. [커스텀 유효성 검증(어노테이션)](#8-커스텀-유효성-검증어노테이션)
+8. [Custom 유효성 검증](#8-custom-유효성-검증)
 9. [Entity, Repository 설계](#9-entity-repository-설계)
 10. [QueryDSL 설계](#10-querydsl-설계)
-11. [Dto 설계](#11-dto-설계)
+11. [DTO 설계](#11-dto-설계)
 12. [Service 설계](#12-service-설계)
 13. [Controller 설계](#13-controller-설계)
-14. [주석](#14-주석)
+14. [주석 작성](#14-주석-작성)
 15. [단위 테스트](#15-단위-테스트)
-16. [정적 분석](#16-정적-분석)
-17. [`MainDataSourceConfig` 클래스 어노테이션 정리](#17-maindatasourceconfig-클래스-어노테이션-정리)
-18. [`SecurityConfig` 클래스](#18-securityconfig-클래스)
+16. [정적 분석 도구 사용](#16-정적-분석-도구-사용)
+17. [MainDataSourceConfig 클래스](#17-maindatasourceconfig-클래스)
+18. [SecurityConfig 클래스](#18-securityconfig-클래스)
 
 --- 
 
-### 1. `build.gradle` 설정
+## 1. Gradle 설정 (build.gradle)
 
 - Spring Boot Web, AOP, Validation, Security, Test 등 필수 의존성 추가
 - JPA, QueryDSL, ModelMapper, Lombok, Swagger 등 DB 연동 및 객체 매핑 관련 의존성 포함
@@ -29,7 +31,7 @@
 
 ---
 
-### 2. `application.yml` 구성
+## 2. Application 설정 (application.yml)
 
 - **공통 설정**: 서버 포트, Spring 기본 설정 등 공통 항목 정의
 - **환경별 설정 분리**
@@ -38,7 +40,7 @@
 
 ---
 
-### 3. 로그 설정 (`logback-spring.xml`)
+## 3. 로그 설정 (logback-spring.xml)
 
 - 로그 포맷과 색상 지정
 - 파일 로그 없이 콘솔 출력만 수행
@@ -46,7 +48,7 @@
 
 ---
 
-### 4. 패키지 구조
+## 4. 패키지 구조
 
 - 공통 유틸리티, 상수, Enum 등은 `기본 패키지.common` 하위에 작성
 - 빈 설정 등 설정 관련 클래스는 `기본 패키지.config` 하위에 작성
@@ -61,7 +63,7 @@
 
 ---
 
-### 5. 빈 등록 (`config` 패키지)
+## 5. 빈 등록 (`config` 패키지)
 
 Spring Boot 기본 자동설정 외 커스텀 구성을 위해 별도 빈 등록
 
@@ -72,7 +74,7 @@ Spring Boot 기본 자동설정 외 커스텀 구성을 위해 별도 빈 등록
 
 ---
 
-### 6. 요청/응답 로그 등록 (`LoggingFilter`)
+## 6. 요청/응답 로그 등록 (`LoggingFilter`)
 
 - 요청과 응답을 `ContentCachingRequestWrapper`, `ContentCachingResponseWrapper`로 감싸서 필터 체인 실행
 - 처리 후 요청/응답 내용을 로그로 출력하고, 응답 바디를 복사해 정상 응답 보장
@@ -81,7 +83,7 @@ Spring Boot 기본 자동설정 외 커스텀 구성을 위해 별도 빈 등록
 
 ---
 
-### 7. ExceptionAdvice
+## 7. ExceptionAdvice
 
 - `@RestControllerAdvice`를 사용한 전역 예외 처리 컴포넌트
 - 관련 클래스 요약
@@ -94,7 +96,7 @@ Spring Boot 기본 자동설정 외 커스텀 구성을 위해 별도 빈 등록
 
 ---
 
-### 8. 커스텀 유효성 검증(어노테이션)
+## 8. Custom 유효성 검증
 
 기본 제공되는 어노테이션만으로 검증이 어려워 커스텀 유효성 검증이 필요할 경우, `@interface`로 커스텀 어노테이션을 정의하고, `ConstraintValidator`
 구현체에 검증 로직을 작성
@@ -119,7 +121,7 @@ Spring Boot 기본 자동설정 외 커스텀 구성을 위해 별도 빈 등록
 
 ---
 
-### 10. QueryDSL 설계
+## 10. QueryDSL 설계
 
 - 기본 Repository의 CRUD/쿼리 메서드로 처리하기 어렵거나, 조건이 복잡한 경우 QueryDSL을 추가로 사용
 - **동적 WHERE 절**: `BooleanBuilder`를 사용
@@ -128,14 +130,14 @@ Spring Boot 기본 자동설정 외 커스텀 구성을 위해 별도 빈 등록
 
 ---
 
-### 11. Dto 설계
+## 11. Dto 설계
 
 - 도메인별로 기본 DTO를 작성하고, 기능별로 필요한 DTO는 내부 static 클래스로 추가 작성
 - Service 레이어에서는 빌더 패턴 또는 setter 패턴 대신, 팩토리 메서드 패턴(`of` 메서드)을 사용하기 위해 해당 메서드를 제공 (명확성, 가독성)
 
 ---
 
-### 12. Service 설계
+## 12. Service 설계
 
 - 조회 메서드에는 `@Transactional(readOnly = true)`를 사용하고, 그 외의 경우에는 `@Transactional`을 사용
 - 비즈니스 로직에서 유효성 검사/예외 발생 시 `ApiException`을 사용하고, 에러 로그를 기록
@@ -143,7 +145,7 @@ Spring Boot 기본 자동설정 외 커스텀 구성을 위해 별도 빈 등록
 
 ---
 
-### 13. Controller 설계
+## 13. Controller 설계
 
 - Swagger 관련 문서는 컨트롤러명+Docs 클래스를 따로 만들어 상속하여 사용
 - 응답에는 Http 상태값을 명확히 포함하기 위해 `ResponseEntity`를 사용
@@ -152,7 +154,7 @@ Spring Boot 기본 자동설정 외 커스텀 구성을 위해 별도 빈 등록
 
 ---
 
-### 14. 주석
+## 14. 주석 설정
 
 - 최소 메서드 단위로 JavaDoc 형식의 주석 작성
 - 필요에 따라 클래스에도 JavaDoc 작성
@@ -160,7 +162,7 @@ Spring Boot 기본 자동설정 외 커스텀 구성을 위해 별도 빈 등록
 
 ---
 
-### 15. 단위 테스트
+## 15. 단위 테스트
 
 - Given-When-Then 패턴으로 테스트 메서드를 작성
 - 각 메서드 단위로 @Nested 클래스를 사용하여 테스트를 구조화
@@ -170,7 +172,7 @@ Spring Boot 기본 자동설정 외 커스텀 구성을 위해 별도 빈 등록
 
 ---
 
-### 16. 정적 분석
+## 16. 정적 분석
 
 - 커밋 전, 프로젝트 빌드를 통해 정적 분석을 확인 후 커밋
 - 분석 리포트는 `build/checkstyle-output`, `build/pmd-output` 폴더 하위에서 확인
@@ -178,9 +180,9 @@ Spring Boot 기본 자동설정 외 커스텀 구성을 위해 별도 빈 등록
 
 ---
 
-### 17. `MainDataSourceConfig` 클래스 어노테이션 정리
+## 17. MainDataSourceConfig 클래스
 
-#### 클래스 레벨 어노테이션
+### 클래스
 
 - `@Configuration`: 설정 클래스 등록, 내부 `@Bean` 메서드로 빈 생성
 - `@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})`: 자동설정 활성화하되 DataSource
@@ -190,7 +192,7 @@ Spring Boot 기본 자동설정 외 커스텀 구성을 위해 별도 빈 등록
   TransactionManager 명시
 - `@EnableJpaAuditing`: `@CreatedDate`, `@LastModifiedDate` 필드 자동 처리
 
-#### 메서드/필드 레벨 어노테이션
+### 필드 및 메서드
 
 - `@Qualifier("...")`: 동일 타입 빈 다수일 때 명확한 주입 대상 지정
 - `@PersistenceContext`: JPA `EntityManager` 주입, `unitName`으로 특정 PersistenceUnit 바인딩 (다중 데이터소스 환경
@@ -198,9 +200,9 @@ Spring Boot 기본 자동설정 외 커스텀 구성을 위해 별도 빈 등록
 
 ---
 
-### 18. `SecurityConfig` 클래스
+## 18. SecurityConfig 클래스
 
-#### 보안 설정
+#### 인증 관련
 
 - JWT 기반 상태 비저장(stateless) 인증으로 세션 비활성화
 - CSRF, HTTP Basic 인증 비활성화
@@ -210,12 +212,12 @@ Spring Boot 기본 자동설정 외 커스텀 구성을 위해 별도 빈 등록
 - 인증/인가 실패 시 커스텀 핸들러(`CustomAuthenticationEntryPoint`, `CustomAccessDeniedHandler`)를 통해 JSON 에러 응답
   통일
 
-#### 커스텀 인증/인가 실패 핸들러
+### 필터 관련
 
 - `CustomAuthenticationEntryPoint`: 인증 실패 시 401 상태코드와 JSON 에러 반환
 - `CustomAccessDeniedHandler`: 권한 부족 시 403 상태코드와 JSON 에러 반환
 - 두 핸들러 모두 로깅 처리하여 문제 추적 용이
 
-#### 비밀번호 암호화
+### 비밀번호 암호화
 
 - `BCryptPasswordEncoder` 빈 등록으로 안전한 패스워드 저장 지원
